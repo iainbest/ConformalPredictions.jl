@@ -252,7 +252,7 @@ function plotcoveragehistogram(ζ::Float64,n::Int64,n_val::Int64,l::Float64,cove
     R = length(coverages)
     
     ### analytic answer for distribution of coverages over R trials
-    c_j_analytic = (1/n_val)*BetaBinomial(n_val,n+1-l,l)
+    c_j_analytic = BetaBinomial(n_val,n+1-l,l)
 
     ### histogram of empirical coverages
     p1 = histogram(coverages,normalize=:true,bins=20,alpha=0.3,label="Empirical coverages, $(R) trials")
@@ -263,7 +263,7 @@ function plotcoveragehistogram(ζ::Float64,n::Int64,n_val::Int64,l::Float64,cove
 
         ### plot the analytic answer (and scale y axis to match histogram)
         plot!(LinRange(0,1,length(pdf(c_j_analytic)))[ix],
-                pdf(c_j_analytic)[ix]*2*R,label="analytic",legend=:topleft)
+                pdf(c_j_analytic)[ix]*n_val,label="analytic",legend=:topleft)
     else
     end
 
